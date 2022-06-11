@@ -34,7 +34,7 @@ if __name__ == "__main__":
     else:
         shuffled = (df1.copy()).reset_index(drop = True)
     
-    final = scheduler.priority_based_seperator_2(shuffled, args.k, args.max_trails)
+    final = scheduler.priority_based_seperator_2(shuffled, args.k, args.max_trials)
     with pd.ExcelWriter(file_name) as writer:
         tc = len(final[0])
         for i in range(0,tc):
