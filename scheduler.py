@@ -18,7 +18,6 @@ from collections import deque
 
 def priority_based_seperator(shuffled, k = 10):
   a = shuffled['PRIORITY'].unique()
-  dark , light = setup_colour() 
   a.sort()
   dfo = [pd.DataFrame(columns = shuffled.columns)]*k
   cost_arr = [0]*k
@@ -240,6 +239,8 @@ def setup_colour():
   return (dark, light)
 
 def check_shade(colour):
+  global light
+  global dark
   if (colour in light):
     return 1
   elif  (colour in dark):
