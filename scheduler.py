@@ -10,7 +10,6 @@ Original file is located at
 import pandas as pd
 import numpy as np
 import re
-!pip install python-Levenshtein
 from Levenshtein import distance as lev
 import math
 from collections import Counter
@@ -37,7 +36,7 @@ def priority_based_seperator(shuffled, k = 10):
       cost_arr[i] = cost_arr[i] + cost_l[i] + cost_d[i]
   return (dfo,cost_arr)
 
-def priority_based_seperator_2(shuffled, k = 10):
+def priority_based_seperator_2(shuffled, k = 10, max_trial = 10000):
   a = shuffled['PRIORITY'].unique()
   a.sort()
   dfo = [pd.DataFrame(columns = shuffled.columns)]*k
@@ -46,7 +45,7 @@ def priority_based_seperator_2(shuffled, k = 10):
     cur = shuffled[shuffled['PRIORITY'] == x]
     clean_shuffle_pair = clean_and_format_2(cur)
     shuffled_pair = dark_light_seperator_2(cur,k)
-    temp1 = TSP_SA(switch_over_cost_matrix(clean_shuffle_pair), k)
+    temp1 = TSP_SA(switch_over_cost_matrix(clean_shuffle_pair), max_trial ,k)
     sequence_pair = temp1[1]
     cost_l = temp1[0]
     curo = output_2(shuffled_pair, sequence_pair) 
@@ -185,7 +184,7 @@ def swap(s, m, n):
       i += 1
       j -= 1
    return s1
-def TSP_SA(G, k = 10):
+def TSP_SA(G,max_trial = 10000 ,k = 10):
    s = list(range(len(G)))
    c = cost(G, s)
    c_d = deque([c])
@@ -194,7 +193,7 @@ def TSP_SA(G, k = 10):
    ntrial = 1
    T = 30
    alpha = 0.99
-   while ntrial <= 10000:
+   while ntrial <= max_trial:
       n = np.random.randint(0, len(G))
       while True:
          m = np.random.randint(0, len(G))
@@ -238,7 +237,7 @@ def setup_colour():
   light = colourdf["LIGHT"].unique()
   dark = colourdf["DARK"].unique()
   return (dark, light)
-dark , light = setup_colour()
+
 def check_shade(colour):
   if (colour in light):
     return 1
@@ -248,19 +247,4 @@ def check_shade(colour):
     print("missing colour" + " " + colour)
     return 1
 
-"""here is output stuff"""
-
-xls = pd.ExcelFile('/content/drive/MyDrive/UNSEQUENCE PLAN 26 & 27 may priority.xlsx') # input file
-file_name = 'output.xlsx'
-
-df1 = pd.read_excel(xls, xls.sheet_names[0] )
-df1['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce')
-shuffled = df1.sample(frac=1).reset_index(drop=True)
-final = priority_based_seperator_2(shuffled)
-with pd.ExcelWriter('output.xlsx') as writer:
-  tc = len(final[0])
-  for i in range(0,tc):
-    ((final[0])[tc - i - 1]).to_excel(writer, sheet_name = 'S' + str(i) + 'CId- ' + str((final[1])[tc - i - 1]) , index=False)
-
-final[1]
 
