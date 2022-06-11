@@ -238,7 +238,7 @@ def setup_colour():
   dark = colourdf["DARK"].unique()
   return (dark, light)
 
-dark , light = scheduler.setup_colour()
+dark , light = setup_colour()
 def check_shade(colour):
   if (colour in light):
     return 1
