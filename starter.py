@@ -15,7 +15,7 @@ def parse_args():
     parser.add_argument('--priority_present' , type = bool, required= False, default=False,help="if false adds a priority column with all tasks having equal priority")
     parser.add_argument('--file_name',type=str,required=False, default = 'output.xlsx' ,help="name for the sequenced excel file")
     parser.add_argument('--k' , type=int,required=False, default=10,help="Number of best schedules that need to be present in the output file")
-    parser.add_argument('--max_trials', type = int, required = False, default= 5, help = "Max Swaps for the SA optimiser")
+    parser.add_argument('--max_trials', type = int, required = False, default= 10000, help = "Max Swaps for the SA optimiser")
     parser.add_argument('--shuffle', type = bool, required = False, default = False, help = "To shuffle the imported unscheduled file")
     args = parser.parse_args()
     return args
