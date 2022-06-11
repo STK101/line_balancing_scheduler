@@ -24,7 +24,6 @@ if __name__ == "__main__":
     args = parse_args()
     xls = pd.ExcelFile(args.unsequenced_schedule) # input file
     file_name = args.file_name
-    dark , light = scheduler.setup_colour() 
     df1 = pd.read_excel(xls, xls.sheet_names[0])
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce')
     if (args.priority_present == False):
