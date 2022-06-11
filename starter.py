@@ -12,7 +12,7 @@ import scheduler
 def parse_args():
     parser = argparse.ArgumentParser(description='Line Balancer Ripik')
     parser.add_argument('--unsequenced_schedule',type=str,required=True,help="Path to the  unsequenced schedule excel file")
-    parser.add_argument('--proirity_present' , type = bool, required=True, default=False,help="if false adds a priority column with all tasks having equal priority")
+    parser.add_argument('--proirity_present' , type = bool, required= False, default=False,help="if false adds a priority column with all tasks having equal priority")
     parser.add_argument('--file_name',type=str,required=False, default = 'output.xlsx' ,help="name for the sequenced excel file")
     parser.add_argument('--k' , type=int,required=False, default=10,help="Number of best schedules that need to be present in the output file")
     parser.add_argument('--max_trials', type = int, required = False, default= 5, help = "Max Swaps for the SA optimiser")
