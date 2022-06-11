@@ -18,6 +18,7 @@ from collections import deque
 
 def priority_based_seperator(shuffled, k = 10):
   a = shuffled['PRIORITY'].unique()
+  dark , light = setup_colour() 
   a.sort()
   dfo = [pd.DataFrame(columns = shuffled.columns)]*k
   cost_arr = [0]*k
