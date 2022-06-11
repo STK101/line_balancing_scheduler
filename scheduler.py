@@ -224,7 +224,7 @@ def TSP_SA(G,max_trial = 10000 ,k = 10):
    return (c_arr,s_arr)
 
 def setup_colour():
-  colourfile = pd.ExcelFile('/content/drive/MyDrive/Light & Dark Color Shade List in MES.xlsx')
+  colourfile = pd.ExcelFile('Light & Dark Color Shade List in MES.xlsx')
   colourdf = pd.read_excel(colourfile, colourfile.sheet_names[0] )
   colourdf.drop(colourdf.columns[0:2], axis = 1, inplace = True)
   colourdf= colourdf.iloc[5:]
