@@ -17,7 +17,6 @@ def starter_ex(unsequenced_schedule, priority_present,file_name = 'output.xlsx' 
     #'--max_trials' => "Max Swaps for the SA optimiser")
     #'--shuffle' => "To shuffle the imported unscheduled file")
     xls = pd.ExcelFile(unsequenced_schedule) # input file
-    file_name = file_name
     df1 = pd.read_excel(xls, xls.sheet_names[0])
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce')
     if (priority_present == 'False'):
@@ -25,10 +24,10 @@ def starter_ex(unsequenced_schedule, priority_present,file_name = 'output.xlsx' 
     if (shuffle == 'True'):
         shuffled = df1.sample(frac=1).reset_index(drop=True)
     else:
-        shuffled = (df1.copy()).reset_index(drop = True)
-    
+        shuffled = (df1.copy()).reset_index(drop = True)   
     final = scheduler.priority_based_seperator_2(shuffled, k, max_trials)
     with pd.ExcelWriter(file_name) as writer:
         tc = len(final[0])
         for i in range(0,tc):
             ((final[0])[tc - i - 1]).to_excel(writer, sheet_name = 'S' + str(i) + 'CId- ' + str((final[1])[tc - i - 1]) , index=False)
+    return None;
