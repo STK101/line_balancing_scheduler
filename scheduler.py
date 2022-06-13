@@ -34,7 +34,7 @@ def priority_based_seperator(shuffled, k = 10):
     for i in range(0,k):
       dfo[i] = pd.concat([dfo[i],curo[i]])
       cost_arr[i] = cost_arr[i] + cost_l[i] + cost_d[i]
-  return (dfo,cost_arr)
+  return [dfo,cost_arr]
 
 def priority_based_seperator_2(shuffled, k = 10, max_trial = 10000):
   a = shuffled['PRIORITY'].unique()
