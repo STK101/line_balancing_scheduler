@@ -55,7 +55,7 @@ def priority_based_seperator_2(shuffled, k = 10, max_trial = 10000):
   return (dfo,cost_arr)
 
 def dark_light_seperator(shuffled, k = 10):
-  shuffled['COLOUR_TYPE'] = shuffled['COLOUR'].apply(lambda x: check_shade(re.sub("[^a-z0-9]+", '', x.lower()))%2) #colour type changes
+  shuffled['COLOUR_TYPE'] = shuffled['COLOUR'].apply(lambda x: check_shade(re.sub("[^a-z0-9]+", '', x.lower()))) #colour type changes
   shuffled_d = (shuffled[shuffled['COLOUR_TYPE'] == 0]).copy()
   shuffled_l = (shuffled[shuffled['COLOUR_TYPE'] == 1]).copy()
   shuffled_d.reset_index(drop = True,inplace = True)
@@ -67,7 +67,7 @@ def dark_light_seperator(shuffled, k = 10):
     out = out + [shuffled_l.copy()]
   return out
 def dark_light_seperator_2(shuffled, k = 10):
-  shuffled['COLOUR_TYPE'] = shuffled['COLOUR'].apply(lambda x: check_shade(re.sub("[^a-z0-9]+", '', x.lower()))%2) #colour type changes
+  shuffled['COLOUR_TYPE'] = shuffled['COLOUR'].apply(lambda x: check_shade(re.sub("[^a-z0-9]+", '', x.lower()))) #colour type changes
   shuffled.reset_index(drop = True,inplace = True)
   out = [shuffled.copy()]
   for x in range(0,k-1):
