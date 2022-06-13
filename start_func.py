@@ -26,6 +26,9 @@ def starter_ex(unsequenced_schedule, priority_present,file_name = 'output.xlsx' 
     else:
         shuffled = (df1.copy()).reset_index(drop = True)   
     final = scheduler.priority_based_seperator_2(shuffled, k, max_trials)
+    tc = len(final[0])
+    for i in range(0,tc):
+        (final[0])[i] = (final[0])[i].fillna(" ")
     return final
 
 def output_writer(final,file_name ='output.xlsx'):
