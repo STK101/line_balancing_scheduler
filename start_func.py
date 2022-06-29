@@ -29,6 +29,7 @@ def starter_ex(unsequenced_schedule, priority_present,file_name = 'output.xlsx' 
     tc = len(final[0])
     for i in range(0,tc):
         (final[0])[i] = (final[0])[i].fillna(" ")
+        (final[0])[i] = (final[0])[i].loc[:, ~((final[0])[i]).columns.str.contains('^Unnamed')]
     return final
 
 def output_writer(final,file_name ='output.xlsx'):
@@ -36,4 +37,4 @@ def output_writer(final,file_name ='output.xlsx'):
         tc = len(final[0])
         for i in range(0,tc):
             ((final[0])[tc - i - 1]).to_excel(writer, sheet_name = 'S' + str(i) + 'CId- ' + str((final[1])[tc - i - 1]) , index=False)
-    return None;
+    return None                                                
