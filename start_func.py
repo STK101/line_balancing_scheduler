@@ -23,7 +23,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 10, max_tri
     u_dates.sort()
     u_dict =  dict(zip(u_dates, range(0,len(u_dates))))
     if ('PRIORITY' not in df1.columns):
-        df1['PRIORITY'] = (df1['DATE']).apply(lambda x : u_dict.get(x))
+        df1['PRIORITY'] = (df1['DATE']).apply(lambda x : u_dict.get(x.to_datetime64()))
     if (shuffle == 'True'):
         shuffled = df1.sample(frac=1).reset_index(drop=True)
     else:
