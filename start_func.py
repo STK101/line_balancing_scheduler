@@ -8,7 +8,7 @@ from scipy.spatial.distance import pdist, squareform
 from collections import deque
 import scheduler
 
-def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 10, max_trials = 10000 ,shuffle = False):
+def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_trials = 10000 ,shuffle = False):
 
     #'--unsequenced_schedule' => "Path to the  unsequenced schedule excel file")
     #'--priority_present'  => "if false adds a priority column with all tasks having equal priority" i.e. if priority column present in input then true else false
