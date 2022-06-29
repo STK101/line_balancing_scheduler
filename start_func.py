@@ -21,7 +21,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 10, max_tri
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce')
     u_dates = (df1['DATE']).unique()
     u_dates.sort()
-    u_dict =  dict.fromkeys(u_dates, range(0,len(u_dates)))
+    u_dict =  dict(zip(u_dates, range(0,len(u_dates))))
     if ('PRIORITY' not in df1.columns):
         df1['PRIORITY'] = (df1['DATE']).apply(lambda x : u_dict.get(x))
     if (shuffle == 'True'):
