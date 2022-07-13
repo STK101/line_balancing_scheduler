@@ -7,7 +7,8 @@ eg - ```python starter.py --unsequenced_schedule "UNSEQUENCE PLAN 26 & 27 may pr
 To look for other run options look into the starter.py -> parse_args() function 
 
 # Tracker
-1)Date Parser
-2)Add line 1 and line 2 seperation rows
+
+1) Date Parser
+2) Add line 1 and line 2 seperation rows
 
 
