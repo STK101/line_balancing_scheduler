@@ -7,12 +7,7 @@ eg - ```python starter.py --unsequenced_schedule "UNSEQUENCE PLAN 26 & 27 may pr
 To look for other run options look into the starter.py -> parse_args() function 
 
 # Tracker
-1) Fix Clutter - Done
-2) Better Priority Handling - Done
-3) Fix output from Tool - Ongoing
-4) APC handling - Ongoing
-5) Line 1 and Line 2 Division of SKUs - Not Started
+1)Date Parser
+2)Add line 1 and line 2 seperation rows
 
-## APC Handling
-1. Just before some packet - Super Sku
-2. X hours before some packet - Need to add a time component to our paint scheduler (need time required to paint an sku + changeover time etc to predict the right time to make APC)
+
