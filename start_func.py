@@ -8,7 +8,24 @@ from scipy.spatial.distance import pdist, squareform
 from collections import deque
 import scheduler
 
-def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_trials = 10000 ,shuffle = False):
+def backlog_reader(source):
+    back_df = pd.read_csv(source)
+    back_idx = -1
+    for i in range(0,len(back_df)):
+        if (back_df.iloc[i])["DESCRIPTION"] == "BackLog":
+            back_idx = i
+            break
+    if(back_idx == -1):
+        return None
+    else:
+        back_df = back_df.iloc[back_idx+1:]
+        back_df = back_df[back_df.columns[:-2]]
+        if(back_df.iloc[0]["PRIORITY"] == 1):
+            back_df["PRIORITY"] = 0
+        elif ((back_df.iloc[0]["PRIORITY"] == 2)) :
+            back_df["PRIORITY"] = 2
+        return back_df
+def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_trials = 10000 ,shuffle = False, backlog1 = None, backlog2 = None):
 
     #'--unsequenced_schedule' => "Path to the  unsequenced schedule excel file")
     #'--priority_present'  => "if false adds a priority column with all tasks having equal priority" i.e. if priority column present in input then true else false
@@ -28,6 +45,12 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
         shuffled = df1.sample(frac=1).reset_index(drop=True)
     else:
         shuffled = (df1.copy()).reset_index(drop = True)   
+    if (backlog1 != None):
+        blog1 = backlog_reader(backlog1)
+        shuffled = pd.concat([shuffled,blog1], axis=1)
+    if (backlog2 != None):
+        blog2 = backlog_reader(backlog2)
+        shuffled = pd.concat([shuffled,blog2], axis=1)
     final = scheduler.priority_based_seperator_2(shuffled, k, max_trials)
     tc = len(final[0])
     for i in range(0,tc):
