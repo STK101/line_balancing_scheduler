@@ -35,7 +35,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     #'--shuffle' => "To shuffle the imported unscheduled file")
     #xls = pd.ExcelFile(unsequenced_schedule) # input file
     df1 = pd.read_csv(unsequenced_schedule)
-    df1['DATE'] = pd.to_datetime(df1["DATE"], format='%d-%b-%Y', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
+    df1['DATE'] = pd.to_datetime(df1["DATE"], format='%d-%b-%y', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
     u_dates = (df1['DATE']).unique()
     u_dates.sort()
     u_dict =  dict(zip(u_dates, range(0,len(u_dates))))
