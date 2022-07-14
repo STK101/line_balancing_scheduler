@@ -58,6 +58,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     for i in range(0,tc):
         (final[0])[i] = (final[0])[i].fillna(" ")
         (final[0])[i] = (final[0])[i].loc[:, ~((final[0])[i]).columns.str.contains('^Unnamed')]
+        (final[0])[i].reset_index(drop = True, inplace = True)
     return final
 
 def output_writer(final,file_name ='output.xlsx'):
