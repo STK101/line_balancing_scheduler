@@ -34,7 +34,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     #'--max_trials' => "Max Swaps for the SA optimiser")
     #'--shuffle' => "To shuffle the imported unscheduled file")
     #xls = pd.ExcelFile(unsequenced_schedule) # input file
-    df1 = pd.read_csv(unsequenced_schedule)
+    df1 = pd.read_csv(unsequenced_schedule, index_col = 0)
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%d-%b-%y', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
     print(df1)
     u_dates = (df1['DATE']).unique()
@@ -45,7 +45,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     if (shuffle == 'True'):
         shuffled = df1.sample(frac=1).reset_index(drop=True)
     else:
-        shuffled = (df1.copy()).reset_index(drop = True, inplace = True)   
+        shuffled = (df1.copy()).reset_index(drop = True)   
     if (backlog1 != None):
         blog1 = backlog_reader(backlog1)
         shuffled = pd.concat([shuffled,blog1], axis=1)
