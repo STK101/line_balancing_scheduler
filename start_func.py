@@ -20,7 +20,7 @@ def backlog_reader(source):
     else:
         back_df = back_df.iloc[back_idx+1:]
         back_df = back_df[back_df.columns[:-2]]
-        back_df['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce')
+        back_df['DATE'] = pd.to_datetime(back_df["DATE"], format='%Y-%m-%d', errors='coerce')
         if(back_df.iloc[0]["PRIORITY"] == 1):
             back_df["PRIORITY"] = 0
         elif ((back_df.iloc[0]["PRIORITY"] == 2)) :
