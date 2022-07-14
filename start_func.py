@@ -47,10 +47,12 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
         shuffled = (df1.copy()).reset_index(drop = True)   
     if (backlog1 != None):
         blog1 = backlog_reader(backlog1)
+        blog1.columns = shuffled.columns
         print(blog1)
         shuffled = pd.concat([shuffled,blog1], axis=1)
     if (backlog2 != None):
         blog2 = backlog_reader(backlog2)
+        blog2.columns = shuffled.columns
         print(blog2)
         shuffled = pd.concat([shuffled,blog2], axis=1)
     print(shuffled)
