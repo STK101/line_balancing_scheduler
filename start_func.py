@@ -49,12 +49,12 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
         blog1 = backlog_reader(backlog1)
         blog1.columns = shuffled.columns
         print(blog1)
-        shuffled = pd.concat([shuffled,blog1], axis=1)
+        shuffled = pd.concat([shuffled,blog1], axis=0)
     if (backlog2 != None):
         blog2 = backlog_reader(backlog2)
         blog2.columns = shuffled.columns
         print(blog2)
-        shuffled = pd.concat([shuffled,blog2], axis=1)
+        shuffled = pd.concat([shuffled,blog2], axis=0)
     print(shuffled)
     final = scheduler.priority_based_seperator_2(shuffled, k, max_trials)
     tc = len(final[0])
