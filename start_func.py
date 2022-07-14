@@ -36,7 +36,6 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     #xls = pd.ExcelFile(unsequenced_schedule) # input file
     df1 = pd.read_csv(unsequenced_schedule, index_col = 0)
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%d-%b-%y', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
-    print(df1)
     u_dates = (df1['DATE']).unique()
     u_dates.sort()
     u_dict =  dict(zip(u_dates, range(0,len(u_dates))))
@@ -52,7 +51,6 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     if (backlog2 != None):
         blog2 = backlog_reader(backlog2)
         shuffled = pd.concat([shuffled,blog2], axis=1)
-    print(shuffled)
     final = scheduler.priority_based_seperator_2(shuffled, k, max_trials)
     tc = len(final[0])
     for i in range(0,tc):
