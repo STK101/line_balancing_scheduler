@@ -35,7 +35,7 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     #'--max_trials' => "Max Swaps for the SA optimiser")
     #'--shuffle' => "To shuffle the imported unscheduled file")
     #xls = pd.ExcelFile(unsequenced_schedule) # input file
-    df1 = pd.read_csv(unsequenced_schedule, index_col = 0)
+    df1 = unsequenced_schedule#pd.read_csv(unsequenced_schedule, index_col = 0)
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%d-%b-%y', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
     u_dates = (df1['DATE']).unique()
     u_dates.sort()
@@ -65,6 +65,37 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
         (final[0])[i].reset_index(drop = True, inplace = True)
     return final
 
+def sns_apc_adder(sequenced):
+    sns_pkts_apc_col = pd.read_csv("SNS packets and apc colours - Sheet1.csv")
+    sns_pkts_spc_seq = pd.read_csv("SNS_apc_list - Sheet1.csv")
+    sns_pkts_apc_col_dict = dict(zip(sns_pkts_apc_col["APC ItemCode"],sns_pkts_apc_col["Colour"]))
+    sns_pkts_spc_seq.fillna("Missing", inplace = True)
+    sns_msku_ic = sns_pkts_spc_seq["Main SKU IC"]
+    sns_apc_pkt_lst = []
+    for x in range (0, len(sns_pkts_spc_seq)):
+        st = 3
+        out_arr = []
+        while (st < len(sns_pkts_spc_seq.loc[x])):
+            out_arr.append([(sns_pkts_spc_seq.loc[x])[st],(sns_pkts_spc_seq.loc[x])[st+1] ])
+            st = st + 2
+        sns_apc_pkt_lst.append([out_arr])
+    sns_pkt_apc_dict = dict(zip(sns_msku_ic,sns_apc_pkt_lst))
+    for x in range(0,len(sequenced)):
+        if (sequenced.loc[x])[2] in  sns_pkt_apc_dict.keys():
+            date = (sequenced.loc[x])[0]
+            qty = (sequenced.loc[x])[5]
+            prior = (sequenced.loc[x])[6]
+            cur_insert = sns_pkt_apc_dict.get((sequenced.loc[x])[2])
+            cur_insert = cur_insert[0]
+            for c in range(0, len(cur_insert)):
+                index = x + (0.1*(c+1))
+                sequenced.loc[index + 0.01] = [date, " ", cur_insert[c][0], cur_insert[c][1],sns_pkts_apc_col_dict.get( cur_insert[c][0]), qty, prior]
+    sequenced = sequenced.sort_index(ascending=True)
+    sequenced.reset_index(drop = True,inplace = True)
+    return sequenced
+
+
+    
 def output_writer(final,file_name ='output.xlsx'):
     with pd.ExcelWriter(file_name) as writer:
         tc = len(final[0])
