@@ -34,8 +34,8 @@ def starter_ex(unsequenced_schedule, file_name = 'output.xlsx' , k = 1, max_tria
     #'--k' => "Number of best schedules that need to be present in the output file")
     #'--max_trials' => "Max Swaps for the SA optimiser")
     #'--shuffle' => "To shuffle the imported unscheduled file")
-    xls = pd.ExcelFile(unsequenced_schedule) # input file
-    df1 = pd.read_csv(unsequenced_schedule, index_col = 0)
+    #xls = pd.ExcelFile(unsequenced_schedule) # input file
+    df1 = pd.read_excel(unsequenced_schedule)
     df1['DATE'] = pd.to_datetime(df1["DATE"], format='%Y-%m-%d', errors='coerce') #'%d-%b-%Y' '%Y-%m-%d'
     u_dates = (df1['DATE']).unique()
     u_dates.sort()
